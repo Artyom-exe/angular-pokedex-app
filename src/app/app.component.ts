@@ -1,4 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
+import { POKEMON_LIST } from './pokemon-list.fake';
 
 
 @Component({
