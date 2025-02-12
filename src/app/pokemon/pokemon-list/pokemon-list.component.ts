@@ -16,8 +16,11 @@ export class PokemonListComponent {
   readonly pokemonList = signal(this.pokemonService.getPokemonList());
   readonly searchTerm = signal('');
   readonly filteredPokemonList = computed(() => {
-      return this.pokemonList().filter(pokemon => pokemon.name.toLowerCase().includes(this.searchTerm().trim().toLowerCase()));
-    });
+    const searchFirstLetter = this.searchTerm().trim().toLowerCase()[0] || '';
+    return this.pokemonList().filter(pokemon =>
+      pokemon.name.toLowerCase().startsWith(searchFirstLetter)
+    );
+  });
 
   size(pokemon: Pokemon) {
     if (pokemon.life <= 15) {
