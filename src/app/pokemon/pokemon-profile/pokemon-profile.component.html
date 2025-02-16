@@ -1,1 +1,55 @@
-<p>pokemon-profile works!</p>
+<div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-12 px-4">
+  <div class="container mx-auto max-w-4xl mt-14">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition hover:shadow-2xl">
+      <div class="flex flex-col md:flex-row">
+        <div class="md:w-1/3 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center p-8">
+          <img [src]="pokemon().picture"
+               [alt]="pokemon().name"
+               class="w-full max-w-[250px] h-auto rounded-xl shadow-md transform transition hover:scale-105" />
+        </div>
+        <div class="md:w-2/3 p-8">
+          <h2 class="text-4xl font-bold text-gray-800 mb-8">
+            {{ pokemon().name }}
+            <div class="h-1 w-20 bg-amber-500 mt-2 rounded-full"></div>
+          </h2>
+
+          <div class="space-y-6">
+            <div class="grid grid-cols-2 gap-6">
+              <div class="text-gray-600 font-semibold">Points de vie</div>
+              <div class="text-gray-800 font-medium">{{ pokemon().life }}</div>
+
+              <div class="text-gray-600 font-semibold">Dégâts</div>
+              <div class="text-gray-800 font-medium">{{ pokemon().damage }}</div>
+
+              <div class="text-gray-600 font-semibold">Types</div>
+              <div class="flex flex-wrap gap-2">
+                @for(type of pokemon().types; track type) {
+                  <span class="px-4 py-1.5 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-amber-600 rounded-full shadow-sm">
+                    {{ type }}
+                  </span>
+                }
+              </div>
+
+              <div class="text-gray-600 font-semibold">Date de création</div>
+              <div class="text-gray-800 font-medium">{{ pokemon().created | date : "dd/MM/yyyy" }}</div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-12">
+            <button routerLink="/pokemons"
+                    class="group flex items-center gap-2 text-amber-500 hover:text-amber-600 font-medium transition-all duration-200">
+              <span class="transform transition-transform group-hover:-translate-x-1">←</span>
+              RETOUR
+            </button>
+            <button class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors duration-200 shadow-sm">
+              ÉDITER
+            </button>
+            <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 shadow-sm">
+              SUPPRIMER
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
