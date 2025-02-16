@@ -1,52 +1,61 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-12 px-4">
-  <div class="container mx-auto max-w-4xl mt-14">
+<div class="min-h-screen bg-gray-100">
+  <div class="container mx-auto px-4 pt-24 pb-12"> <!-- Ajout de padding-top pour l'espacement avec la nav -->
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition hover:shadow-2xl">
-      <div class="flex flex-col md:flex-row">
-        <div class="md:w-1/3 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center p-8">
-          <img [src]="pokemon().picture"
-               [alt]="pokemon().name"
-               class="w-full max-w-[250px] h-auto rounded-xl shadow-md transform transition hover:scale-105" />
+      <div class="relative"> <!-- Ajout d'un conteneur relatif pour le fond coloré -->
+        <div class="absolute inset-0 bg-gradient-to-br opacity-5"
+             [class]="typeColors().primary + ' ' + typeColors().secondary">
         </div>
-        <div class="md:w-2/3 p-8">
-          <h2 class="text-4xl font-bold text-gray-800 mb-8">
-            {{ pokemon().name }}
-            <div class="h-1 w-20 bg-amber-500 mt-2 rounded-full"></div>
-          </h2>
-
-          <div class="space-y-6">
-            <div class="grid grid-cols-2 gap-6">
-              <div class="text-gray-600 font-semibold">Points de vie</div>
-              <div class="text-gray-800 font-medium">{{ pokemon().life }}</div>
-
-              <div class="text-gray-600 font-semibold">Dégâts</div>
-              <div class="text-gray-800 font-medium">{{ pokemon().damage }}</div>
-
-              <div class="text-gray-600 font-semibold">Types</div>
-              <div class="flex flex-wrap gap-2">
-                @for(type of pokemon().types; track type) {
-                  <span class="px-4 py-1.5 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-amber-600 rounded-full shadow-sm">
-                    {{ type }}
-                  </span>
-                }
-              </div>
-
-              <div class="text-gray-600 font-semibold">Date de création</div>
-              <div class="text-gray-800 font-medium">{{ pokemon().created | date : "dd/MM/yyyy" }}</div>
-            </div>
+        <div class="relative flex flex-col md:flex-row"> <!-- Contenu au premier plan -->
+          <div class="md:w-1/3 bg-gradient-to-br flex items-center justify-center p-8"
+               [class]="typeColors().primary + ' ' + typeColors().secondary + ' bg-opacity-10'">
+            <img [src]="pokemon().picture"
+                 [alt]="pokemon().name"
+                 class="w-full max-w-[250px] h-auto rounded-xl shadow-md transform transition hover:scale-105" />
           </div>
+          <div class="md:w-2/3 p-8">
+            <h2 class="text-4xl font-bold mb-8" [class]="typeColors().text">
+              {{ pokemon().name }}
+              <div class="h-1 w-20 mt-2 rounded-full bg-gradient-to-r"
+                   [class]="typeColors().primary + ' ' + typeColors().secondary">
+              </div>
+            </h2>
 
-          <div class="flex justify-between mt-12">
-            <button routerLink="/pokemons"
-                    class="group flex items-center gap-2 text-amber-500 hover:text-amber-600 font-medium transition-all duration-200">
-              <span class="transform transition-transform group-hover:-translate-x-1">←</span>
-              RETOUR
-            </button>
-            <button class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors duration-200 shadow-sm">
-              ÉDITER
-            </button>
-            <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 shadow-sm">
-              SUPPRIMER
-            </button>
+            <div class="space-y-6">
+              <div class="grid grid-cols-2 gap-6">
+                <div class="text-gray-600 font-semibold">Points de vie</div>
+                <div class="text-gray-800 font-medium">{{ pokemon().life }}</div>
+
+                <div class="text-gray-600 font-semibold">Dégâts</div>
+                <div class="text-gray-800 font-medium">{{ pokemon().damage }}</div>
+
+                <div class="text-gray-600 font-semibold">Types</div>
+                <div class="flex flex-wrap gap-2">
+                  @for(type of pokemon().types; track type) {
+                    <span class="px-4 py-1.5 text-sm font-medium text-white rounded-full shadow-sm bg-gradient-to-r"
+                          [class]="typeColors().primary + ' ' + typeColors().secondary">
+                      {{ type }}
+                    </span>
+                  }
+                </div>
+
+                <div class="text-gray-600 font-semibold">Date de création</div>
+                <div class="text-gray-800 font-medium">{{ pokemon().created | date : "dd/MM/yyyy" }}</div>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-12">
+              <button routerLink="/pokemons" [class]="typeColors().text + ' hover:opacity-80'">
+                <span class="transform transition-transform group-hover:-translate-x-1">←</span>
+                RETOUR
+              </button>
+              <button class="px-4 py-2 text-white rounded-lg shadow-sm bg-gradient-to-r transition-opacity hover:opacity-90"
+                      [class]="typeColors().primary + ' ' + typeColors().secondary">
+                ÉDITER
+              </button>
+              <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 shadow-sm">
+                SUPPRIMER
+              </button>
+            </div>
           </div>
         </div>
       </div>
