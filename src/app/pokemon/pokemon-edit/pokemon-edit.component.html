@@ -135,6 +135,17 @@
                       <span class="ml-2 font-bold">&times;</span>
                     </button>
                   }
+
+                  @if(pokemonTypeList.hasError('required')) {
+                    <div class="mt-1 text-sm text-red-600">
+                      Veuillez sélectionner au moins un type.
+                    </div>
+                  }
+                  @if(pokemonTypeList.hasError('maxlength')) {
+                    <div class="mt-1 text-sm text-red-600">
+                      Vous ne pouvez pas sélectionner plus de {{ pokemonTypeList.getError('maxlength').requiredLength }} types.
+                    </div>
+                  }
                 </div>
 
                 <!-- Types Checkbox List -->
@@ -163,7 +174,9 @@
               Retour
             </button>
             <button type="submit"
-                    class="text-amber-500 hover:text-amber-600 font-medium transition-colors duration-200">
+                    class="text-amber-500 hover:text-amber-600 font-medium transition-colors duration-200"
+                    [ngClass]="{ 'opacity-50': form.invalid }"
+                    [disabled]="form.invalid">
               Sauvegarder les changements
             </button>
           </div>

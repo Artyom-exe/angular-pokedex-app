@@ -27,7 +27,8 @@ export class PokemonEditComponent {
 
   // ====== FORM CONFIGURATION ======
   readonly form = new FormGroup({
-    name: new FormControl(this.pokemon().name, [
+    name: new FormControl(this.pokemon().name,
+    [
       Validators.required,
       Validators.minLength(POKEMON_RULES.MIN_NAME),
       Validators.maxLength(POKEMON_RULES.MAX_NAME),
@@ -36,7 +37,11 @@ export class PokemonEditComponent {
     life: new FormControl(this.pokemon().life),
     damage: new FormControl(this.pokemon().damage),
     types: new FormArray(
-      this.pokemon().types.map((type) => new FormControl(type))
+      this.pokemon().types.map((type) => new FormControl(type)),
+      [
+        Validators.required,
+        Validators.maxLength(POKEMON_RULES.MAX_TYPES),
+      ]
     ),
   });
 
