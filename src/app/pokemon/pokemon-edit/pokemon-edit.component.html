@@ -16,10 +16,43 @@
             <div class="grid grid-cols-3 items-center gap-4">
               <label class="font-medium text-gray-700">Nom</label>
               <div class="col-span-2">
-                <input type="text"
-                       class="w-full rounded-lg border-gray-300 focus:border-amber-500 focus:ring focus:ring-amber-200 transition duration-200"
-                       formControlName="name"
-                       placeholder="Nom du Pokémon" />
+                <input
+                      type="text"
+                        class="w-full rounded-lg px-3 py-2 transition-all duration-200 focus:outline-none focus:ring-2
+                                @if(pokemonName.invalid && pokemonName.touched) {
+                                  border-2 border-red-500
+                                  focus:border-red-500 focus:ring-red-100
+                                  bg-red-50
+                                } @else {
+                                  border border-gray-300
+                                  focus:border-amber-500 focus:ring-amber-100
+                                  hover:border-gray-400
+                                }"
+                      formControlName="name"
+                      placeholder="Nom du Pokémon" />
+
+                      @if(pokemonName.hasError('required')) {
+                      <div class="mt-1 text-sm text-red-600">
+                        Veuillez renseigner ce champ.
+                      </div>
+                      }
+                      @if(pokemonName.hasError('minlength')) {
+                      <div class="mt-1 text-sm text-red-600">
+                        Veuillez saisir un nom plus long.
+                        (Minimum : {{ pokemonName.getError("minlength").requiredLength }} caractères)
+                      </div>
+                      }
+                      @if(pokemonName.hasError('maxlength')) {
+                      <div class="mt-1 text-sm text-red-600">
+                        Veuillez saisir un nom plus court. (Maximum :
+                        {{ pokemonName.getError("maxlength").requiredLength }} caractères)
+                      </div>
+                      }
+                      @if(pokemonName.hasError('pattern')) {
+                      <div class="mt-1 text-sm text-red-600">
+                        Veuillez saisir uniquement des lettres.
+                      </div>
+                      }
               </div>
             </div>
 

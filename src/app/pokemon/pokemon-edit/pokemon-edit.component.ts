@@ -2,8 +2,8 @@ import { DatePipe, JsonPipe, NgStyle } from '@angular/common';
 import { Component, inject, signal, Input } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PokemonService } from '../../pokemon.service';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { getPokemonColor } from '../../pokemon.model';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getPokemonColor, POKEMON_RULES } from '../../pokemon.model';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -22,14 +22,23 @@ export class PokemonEditComponent {
     this.pokemonService.getPokemonById(this.pokemonId)
   ).asReadonly();
 
-  readonly form = new FormGroup({
-  name: new FormControl(this.pokemon().name),
-  life: new FormControl(this.pokemon().life),
-  damage: new FormControl(this.pokemon().damage),
+    readonly form = new FormGroup({
+    name: new FormControl(this.pokemon().name, [
+      Validators.required,
+      Validators.minLength(POKEMON_RULES.MIN_NAME),
+      Validators.maxLength(POKEMON_RULES.MAX_NAME),
+      Validators.pattern(POKEMON_RULES.NAME_PATTERN),
+    ]),
+    life: new FormControl(this.pokemon().life),
+    damage: new FormControl(this.pokemon().damage),
   types: new FormArray(
     this.pokemon().types.map((type) => new FormControl(type))
   ),
   });
+
+  get pokemonName() {
+  return this.form.get('name') as FormControl;
+}
 
   onSubmit(): void {
     console.log(this.form.value);
