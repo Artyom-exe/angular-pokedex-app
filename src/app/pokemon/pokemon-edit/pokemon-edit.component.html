@@ -63,9 +63,7 @@
               <button
                 type="button"
                 class="p-2 rounded-lg border border-gray-300 text-gray-500 transition-all duration-200"
-                [ngClass]="{
-                  'opacity-50': pokemonLife.value <= POKEMON_RULES().MIN_LIFE
-                }"
+                [ngClass]="{ 'opacity-50': pokemonLife.value <= POKEMON_RULES().MIN_LIFE }"
                 [disabled]="pokemonLife.value <= POKEMON_RULES().MIN_LIFE"
                 (click)="decrementLife()">
                 -
@@ -80,7 +78,7 @@
                 <button
                   type="button"
                   class="p-2 rounded-lg border border-gray-300 text-gray-500"
-                  [ngClass]="{'opacity-50': pokemonLife.value >= POKEMON_RULES().MAX_LIFE}"
+                  [ngClass]="{ 'opacity-50': pokemonLife.value >= POKEMON_RULES().MAX_LIFE }"
                   [disabled]="pokemonLife.value >= POKEMON_RULES().MAX_LIFE"
                   (click)="incrementLife()"
                   >+
@@ -92,12 +90,30 @@
             <div class="grid grid-cols-3 items-center gap-4">
               <label class="font-medium text-gray-700">Dégâts</label>
               <div class="col-span-2 flex items-center space-x-2">
-                <button type="button" class="p-2 rounded-lg border border-gray-300 text-gray-500" disabled>-</button>
-                <input type="number"
-                       class="w-24 text-center rounded-lg border-gray-300"
-                       formControlName="damage"
-                       readonly />
-                <button type="button" class="p-2 rounded-lg border border-gray-300 text-gray-500" disabled>+</button>
+                <button
+                  type="button"
+                  class="p-2 rounded-lg border border-gray-300 text-gray-500"
+                  [ngClass]="{ 'opacity-50': pokemonDamage.value <= POKEMON_RULES().MIN_DAMAGE }"
+                  [disabled]="pokemonDamage.value <= POKEMON_RULES().MIN_DAMAGE"
+                  (click)="decrementDamage()"
+                  >
+                  -
+                </button>
+                <input
+                      type="number"
+                      class="w-24 text-center rounded-lg border-gray-300"
+                      formControlName="damage"
+                      readonly />
+
+                <button
+                  type="button"
+                  class="p-2 rounded-lg border border-gray-300 text-gray-500"
+                  [ngClass]="{ 'opacity-50': pokemonDamage.value >= POKEMON_RULES().MAX_DAMAGE }"
+                  [disabled]="pokemonDamage.value >= POKEMON_RULES().MAX_DAMAGE"
+                  (click)="incrementDamage()"
+                  >
+                  +
+                </button>
               </div>
             </div>
 
