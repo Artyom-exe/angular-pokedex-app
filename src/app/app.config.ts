@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PokemonEditComponent } from './pokemon/pokemon-edit/pokemon-edit.component';
 
 const routes: Routes = [
-  { path: 'pokemons/:id/edit',
+  { path: 'pokemons/edit/:id',
     component: PokemonEditComponent,
     title: 'Éditer un Pokémon'
   },

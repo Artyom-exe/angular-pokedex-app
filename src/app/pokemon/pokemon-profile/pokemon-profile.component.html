@@ -44,15 +44,15 @@
             </div>
 
             <div class="flex justify-between mt-12">
-              <button routerLink="/pokemons" [class]="typeColors().text + ' hover:opacity-80'">
+              <button routerLink="/pokemons" [class]="typeColors().text + ' hover:opacity-80 cursor-pointer'">
                 <span class="transform transition-transform group-hover:-translate-x-1">←</span>
                 RETOUR
               </button>
-              <button class="px-4 py-2 text-white rounded-lg shadow-sm bg-gradient-to-r transition-opacity hover:opacity-90"
+              <button [routerLink]="['/pokemons/edit', pokemon().id]" class="px-4 py-2 text-white rounded-lg shadow-sm bg-gradient-to-r transition-opacity hover:opacity-90 cursor-pointer"
                       [class]="typeColors().primary + ' ' + typeColors().secondary">
                 ÉDITER
               </button>
-              <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 shadow-sm">
+              <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 shadow-sm cursor-pointer">
                 SUPPRIMER
               </button>
             </div>
