@@ -1,33 +1,33 @@
 <div class="container mx-auto px-4 py-8 max-w-4xl">
+  <!-- Main Container -->
   <div class="bg-white rounded-xl shadow-lg overflow-hidden">
     <div class="md:grid md:grid-cols-3">
-      <!-- Image Section -->
+
+      <!-- === POKEMON IMAGE SECTION === -->
       <div class="bg-gray-50 p-6 flex items-center justify-center">
-        <img [src]="pokemon().picture" class="w-full max-w-xs rounded-lg object-contain" [alt]="pokemon().name" />
+        <img [src]="pokemon().picture"
+             class="w-full max-w-xs rounded-lg object-contain"
+             [alt]="pokemon().name" />
       </div>
 
-      <!-- Form Section -->
+      <!-- === FORM SECTION === -->
       <div class="col-span-2">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-6">
+          <!-- Title -->
           <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ pokemon().name }}</h2>
 
           <div class="space-y-6">
-            <!-- Name Input -->
+            <!-- === NAME INPUT === -->
             <div class="grid grid-cols-3 items-center gap-4">
               <label class="font-medium text-gray-700">Nom</label>
               <div class="col-span-2">
                 <input
                       type="text"
-                        class="w-full rounded-lg px-3 py-2 transition-all duration-200 focus:outline-none focus:ring-2
-                                @if(pokemonName.invalid && pokemonName.touched) {
-                                  border-2 border-red-500
-                                  focus:border-red-500 focus:ring-red-100
-                                  bg-red-50
-                                } @else {
-                                  border border-gray-300
-                                  focus:border-amber-500 focus:ring-amber-100
-                                  hover:border-gray-400
-                                }"
+                        class="w-full rounded-lg px-3 py-2 transition-all duration-200 focus:outline-none focus:ring-2"
+                        [ngClass]="{
+                          'border-2 border-red-500 focus:border-red-500 focus:ring-red-100 bg-red-50': pokemonName.invalid && (pokemonName.dirty || pokemonName.touched),
+                          'border border-gray-300 focus:border-amber-500 focus:ring-amber-100 hover:border-gray-400': pokemonName.valid || (!pokemonName.dirty && !pokemonName.touched)
+                        }"
                       formControlName="name"
                       placeholder="Nom du Pokémon" />
 
@@ -56,20 +56,39 @@
               </div>
             </div>
 
-            <!-- Life Points -->
+            <!-- === LIFE POINTS SECTION === -->
             <div class="grid grid-cols-3 items-center gap-4">
               <label class="font-medium text-gray-700">Points de vie</label>
               <div class="col-span-2 flex items-center space-x-2">
-                <button type="button" class="p-2 rounded-lg border border-gray-300 text-gray-500" disabled>-</button>
-                <input type="number"
-                       class="w-24 text-center rounded-lg border-gray-300"
-                       formControlName="life"
-                       readonly />
-                <button type="button" class="p-2 rounded-lg border border-gray-300 text-gray-500" disabled>+</button>
+              <button
+                type="button"
+                class="p-2 rounded-lg border border-gray-300 text-gray-500 transition-all duration-200"
+                [ngClass]="{
+                  'opacity-50': pokemonLife.value <= POKEMON_RULES().MIN_LIFE
+                }"
+                [disabled]="pokemonLife.value <= POKEMON_RULES().MIN_LIFE"
+                (click)="decrementLife()">
+                -
+              </button>
+
+                <input
+                      type="number"
+                      class="w-24 text-center rounded-lg border-gray-300"
+                      formControlName="life"
+                      readonly />
+
+                <button
+                  type="button"
+                  class="p-2 rounded-lg border border-gray-300 text-gray-500"
+                  [ngClass]="{'opacity-50': pokemonLife.value >= POKEMON_RULES().MAX_LIFE}"
+                  [disabled]="pokemonLife.value >= POKEMON_RULES().MAX_LIFE"
+                  (click)="incrementLife()"
+                  >+
+                </button>
               </div>
             </div>
 
-            <!-- Damage Points -->
+            <!-- === DAMAGE POINTS SECTION === -->
             <div class="grid grid-cols-3 items-center gap-4">
               <label class="font-medium text-gray-700">Dégâts</label>
               <div class="col-span-2 flex items-center space-x-2">
@@ -82,7 +101,7 @@
               </div>
             </div>
 
-            <!-- Types -->
+            <!-- === TYPES SECTION === -->
             <div class="grid grid-cols-3 items-start gap-4">
               <label class="font-medium text-gray-700">Types</label>
               <div class="col-span-2 space-y-4">
@@ -121,7 +140,7 @@
             </div>
           </div>
 
-          <!-- Actions -->
+          <!-- === ACTION BUTTONS === -->
           <div class="flex justify-between mt-8">
             <button [routerLink]="['/pokemons', pokemon().id]"
                     class="text-amber-500 hover:text-amber-600 font-medium transition-colors duration-200">
